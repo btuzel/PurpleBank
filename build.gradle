@@ -1,0 +1,25 @@
+buildscript {
+    ext {
+        compose_ui_version = '1.3.3'
+        mockk_version = '1.13.3'
+        hilt_version = '2.44'
+        retrofit_version = '2.9.0'
+        ktor_version = '1.6.1'
+        okhttp_version = '4.10.0'
+        espresso_version = '3.5.1'
+        work_manager_version = '2.8.1'
+    }
+    dependencies {
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.44"
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+}// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version '7.4.1' apply false
+    id 'com.android.library' version '7.4.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
+    id 'com.google.dagger.hilt.android' version '2.44' apply false
+}

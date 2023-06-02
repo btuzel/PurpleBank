@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PurpleBank</string>
+    <string name="money_send">Send</string>
+</resources>
