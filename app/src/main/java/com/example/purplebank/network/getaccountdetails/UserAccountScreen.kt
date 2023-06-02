@@ -29,6 +29,7 @@ import com.example.purplebank.R
 import com.example.purplebank.data.transaction.Amount
 import com.example.purplebank.data.user.MyMostRecentTransaction
 import com.example.purplebank.data.user.User
+import com.example.purplebank.helper.fixDate
 import com.example.purplebank.ui.ErrorState
 import com.example.purplebank.ui.LoadingState
 import com.example.purplebank.ui.PurpleBankButton
@@ -110,12 +111,14 @@ fun UserAccountInternal(
 fun TransactionItem(transaction: MyMostRecentTransaction) {
     val bgColor =
         if (transaction.direction == Direction.OUTGOING.stringValue) Color.Green else Color.Red
-    Column(modifier = Modifier.background(bgColor).fillMaxWidth()) {
-        Text(text = transaction.date)
-        Text(text = transaction.reference)
-        Text(text = transaction.amount.currency)
+    Column(modifier = Modifier
+        .background(bgColor)
+        .fillMaxWidth()) {
+        Text(text = stringResource(id = R.string.date, fixDate(transaction.date)))
+        Text(text = stringResource(id = R.string.reference, transaction.reference))
+        Text(text = stringResource(id = R.string.currency_type, transaction.amount.currency))
         AmountRow(transaction.amount.amount)
-        Text(text = transaction.sender)
+        Text(text = transaction.sender ?: "No sender")
         Text(text = transaction.direction)
     }
 }

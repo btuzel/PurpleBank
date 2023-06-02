@@ -70,7 +70,7 @@ class EmbeddedServer @Inject constructor(
 			            }
 		                },
 		                    {
-			                    "sender": "poop",
+			                    "sender": null,
 			                    "reference": "INTEREST MAY 23 @ 4%",
 		                    	"date": "20230601T00:00:01",
 		                    	"direction": "incoming",

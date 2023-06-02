@@ -7,5 +7,5 @@ data class MyMostRecentTransaction(
     val date: String,
     val direction: String,
     val reference: String,
-    val sender: String
+    val sender: String?
 )

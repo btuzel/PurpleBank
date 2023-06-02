@@ -5,4 +5,6 @@
     <string name="account_name">Account Name: %s</string>
     <string name="currency_type">Currency Type: %s</string>
     <string name="recent_transactions">Recent Transactions</string>
+    <string name="date">Transaction Date: %s</string>
+    <string name="reference">Reference: %s</string>
 </resources>
