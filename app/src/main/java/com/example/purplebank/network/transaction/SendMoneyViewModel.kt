@@ -4,13 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.purplebank.data.transaction.Amount
 import com.example.purplebank.data.transaction.TransactionAmount
+import com.example.purplebank.data.transaction.transactionresponse.SendMoneyResult
 import com.example.purplebank.network.getaccountdetails.GetAccountDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.math.BigDecimal
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
+import javax.inject.Inject
 
 @HiltViewModel
 class SendMoneyViewModel @Inject constructor(
@@ -37,8 +38,9 @@ class SendMoneyViewModel @Inject constructor(
         val account = getAccountDetailsUseCase()
         currentBalance = account.myBalance.amount
         _uiState.value = UiState.AccountState(
-            currentBalance,
-            "0"
+            currentBalance = currentBalance,
+            amountToSend = "",
+            returnMessage = ""
         )
     }
 
@@ -53,29 +55,39 @@ class SendMoneyViewModel @Inject constructor(
             currency = "GBP"
         )
         viewModelScope.launch {
-            val x = UiState.Transferred(sendMoneyUseCase(transactionAmount, targetUser).toString())
-            _uiState.value = x
+            when (val result = sendMoneyUseCase(transactionAmount, targetUser)) {
+                is SendMoneyResult.Failure -> _uiState.value =
+                    UiState.AccountState(
+                        currentBalance = currentBalance,
+                        amountToSend = "",
+                        returnMessage = result.failureReason
+                    )
+
+                is SendMoneyResult.Success -> _uiState.value =
+                    UiState.AccountState(
+                        currentBalance = currentBalance,
+                        amountToSend = "",
+                        returnMessage = "Your transaction was successful! Your new balance is ${result.newBalance.amount.units} pound and ${result.newBalance.amount.subUnits} pennies."
+                    )
+            }
         }
     }
 
     fun valueChanged(value: String) {
         _uiState.value = UiState.AccountState(
             currentBalance = currentBalance,
-            amountToSend = value
+            amountToSend = value,
+            returnMessage = ""
         )
     }
 
 
     sealed class UiState {
         object Loading : UiState()
-
         data class AccountState(
             val currentBalance: Amount,
-            val amountToSend: String
+            val amountToSend: String,
+            val returnMessage: String
         ) : UiState()
-
-
-        data class Transferred(val returnMessage: String) : UiState()
     }
-
 }

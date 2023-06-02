@@ -2,16 +2,12 @@ package com.example.purplebank.network.getaccountdetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.purplebank.data.transaction.Amount
-import com.example.purplebank.data.transaction.TransactionAmount
-import com.example.purplebank.data.user.MyBalance
-import com.example.purplebank.data.user.MyMostRecentTransaction
 import com.example.purplebank.data.user.User
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 //sending money -> Request(50, hardcoded maybe the account that will receive the money)
 //receiving money -> get account details(refresh)
@@ -20,33 +16,25 @@ import kotlinx.coroutines.launch
 class GetAccountDetailsViewModel @Inject constructor(private val getAccountDetailsUseCase: GetAccountDetailsUseCase) :
     ViewModel() {
 
-    private val initialUiState = AccountState(
-        User(
-            id = "000",
-            myBalance = MyBalance(Amount(0, 0), "GBP"),
-            myMostRecentTransactions = listOf(
-                MyMostRecentTransaction(
-                    TransactionAmount(Amount(0, 0), "GBP"),
-                    "9",
-                    "2",
-                    "2",
-                    "2"
-                )
-            ),
-            name = "Jane"
-        )
-    )
-
-    private val _accountUiState: MutableStateFlow<AccountState> = MutableStateFlow(initialUiState)
-    val accountUiState: StateFlow<AccountState> = _accountUiState
+    private val _accountUiState: MutableStateFlow<AccountViewState> =
+        MutableStateFlow(AccountViewState.Loading)
+    val accountUiState: StateFlow<AccountViewState> = _accountUiState
 
     init {
         viewModelScope.launch {
-            _accountUiState.value = AccountState(getAccountDetailsUseCase())
+            try {
+                val account = getAccountDetailsUseCase()
+                _accountUiState.value = AccountViewState.Success(account)
+            } catch (e: Exception) {
+                _accountUiState.value =
+                    AccountViewState.Error(e.message ?: "Unknown error occurred")
+            }
         }
     }
 
-    data class AccountState(
-        val userAccount: User
-    )
+    sealed class AccountViewState {
+        object Loading : AccountViewState()
+        data class Success(val userAccount: User) : AccountViewState()
+        data class Error(val errorMessage: String) : AccountViewState()
+    }
 }

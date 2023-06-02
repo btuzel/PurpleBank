@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">PurpleBank</string>
     <string name="money_send">Send</string>
+    <string name="send_money">Send Money</string>
+    <string name="account_name">Account Name: %s</string>
+    <string name="currency_type">Currency Type: %s</string>
+    <string name="recent_transactions">Recent Transactions</string>
 </resources>

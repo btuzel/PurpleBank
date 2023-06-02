@@ -1,7 +1,6 @@
 package com.example.purplebank.server
 
 import com.example.purplebank.data.transaction.TransactionAmount
-import com.example.purplebank.data.transaction.transactionresponse.SendMoneyResult
 import com.example.purplebank.data.user.User
 import com.example.purplebank.network.getaccountdetails.GetAccountDetailsService
 import com.example.purplebank.network.transaction.SendMoneyService
@@ -9,8 +8,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import java.io.IOException
+import okhttp3.ResponseBody
 import retrofit2.Retrofit
+import java.io.IOException
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -60,7 +60,7 @@ private class NetworkErrorSimulatingSendMoneyService(
     override suspend fun sendMoney(
         transactionAmount: TransactionAmount,
         targetUser: String
-    ): SendMoneyResult {
+    ): ResponseBody {
         if (mockEnvironmentConfig.metadataResponse == Response.NETWORK_ERROR) {
             throw IOException("Something went wrong")
         }

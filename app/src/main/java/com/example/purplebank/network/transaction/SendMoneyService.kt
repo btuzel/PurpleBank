@@ -1,8 +1,7 @@
 package com.example.purplebank.network.transaction
 
 import com.example.purplebank.data.transaction.TransactionAmount
-import com.example.purplebank.data.transaction.transactionresponse.SendMoneyResult
-import retrofit2.Response
+import okhttp3.ResponseBody
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -12,5 +11,5 @@ interface SendMoneyService {
         //@Header("X-APP-ACCESS-TOKEN") apiKey: String,
         @Query("transactionAmount") transactionAmount: TransactionAmount,
         @Query("target-user") targetUser: String,
-    ) : SendMoneyResult
+    ): ResponseBody
 }
