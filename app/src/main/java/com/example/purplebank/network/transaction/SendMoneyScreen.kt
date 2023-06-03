@@ -78,7 +78,9 @@ fun SendMoneyScreenInternal(
                 )
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(bottom = 16.dp).padding(horizontal = 32.dp)
+                    modifier = Modifier
+                        .padding(bottom = 16.dp)
+                        .padding(horizontal = 32.dp)
                 ) {
                     Text(
                         text = moneyState.currentBalance.units.toString(),
@@ -118,7 +120,9 @@ fun SendMoneyScreenInternal(
                 )
                 PurpleBankButton(
                     text = stringResource(R.string.money_send),
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 32.dp, vertical = 16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 32.dp, vertical = 16.dp),
                     enabled = moneyState.amountToSend.isNotEmpty() && evaluateBalance(
                         moneyState.currentBalance,
                         moneyState.amountToSend
@@ -132,6 +136,7 @@ fun SendMoneyScreenInternal(
                     focusRequester.requestFocus()
                 }
             }
+
             SendMoneyViewModel.UiState.Loading -> LoadingState()
         }
     }

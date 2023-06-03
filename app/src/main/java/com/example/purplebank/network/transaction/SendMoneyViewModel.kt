@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.purplebank.data.transaction.Amount
 import com.example.purplebank.data.transaction.TransactionAmount
-import com.example.purplebank.data.transaction.transactionresponse.SendMoneyResult
 import com.example.purplebank.data.user.UserResult
 import com.example.purplebank.network.getaccountdetails.GetAccountDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,10 +39,11 @@ class SendMoneyViewModel @Inject constructor(
         when (val account = getAccountDetailsUseCase()) {
             is UserResult.Failure ->
                 _uiState.value = UiState.AccountState(
-                currentBalance = Amount(0,0),
-                amountToSend = "",
-                returnMessage = ""
-            )
+                    currentBalance = Amount(0, 0),
+                    amountToSend = "",
+                    returnMessage = ""
+                )
+
             is UserResult.Success -> {
                 currentBalance = account.user.myBalance.amount
                 _uiState.value = UiState.AccountState(
@@ -66,24 +66,23 @@ class SendMoneyViewModel @Inject constructor(
             currency = "GBP"
         )
         viewModelScope.launch {
-            when (val result = sendMoneyUseCase(transactionAmount, targetUser)) {
-                is SendMoneyResult.Failure -> _uiState.value =
+            val result = sendMoneyUseCase(transactionAmount, targetUser)
+            if (result.failureReason.isNullOrEmpty()) {
+                _uiState.value =
+                    UiState.AccountState(
+                        currentBalance = currentBalance,
+                        amountToSend = "",
+                        returnMessage = "Your new balance is ${result.newBalance?.amount?.units} pounds and ${result.newBalance?.amount?.subUnits} pence."
+                    )
+                delay(3000L)
+                getBalance()
+            } else {
+                _uiState.value =
                     UiState.AccountState(
                         currentBalance = currentBalance,
                         amountToSend = "",
                         returnMessage = result.failureReason
                     )
-
-                is SendMoneyResult.Success -> {
-                    _uiState.value =
-                        UiState.AccountState(
-                            currentBalance = currentBalance,
-                            amountToSend = "",
-                            returnMessage = "Your transaction was successful! Your new balance is ${result.newBalance.amount.units} pound and ${result.newBalance.amount.subUnits} pennies."
-                        )
-                    delay(3000L)
-                    getBalance()
-                }
             }
         }
     }

@@ -194,5 +194,12 @@ const val successResponseMessageSendMoney = """{
 			"subUnits": 1
 		}
 	}
-}
+
+                            }"""
+
+const val failResponseMessageSendMoney = """{
+
+	"result": "failed",
+	"failureReason": "transaction_flagged_as_possibly_fraudulent"
+
                             }"""

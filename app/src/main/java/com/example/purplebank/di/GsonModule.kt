@@ -14,6 +14,7 @@ object GsonModule {
     @Provides
     fun provideGson(): Gson {
         return GsonBuilder()
+            .setLenient()
             .create()
     }
 }
