@@ -22,10 +22,10 @@ enum class Response {
 class MockEnvironmentConfig @Inject constructor() {
 
     @Volatile
-    var generatePreSignedUrlResponse: Response = Response.SUCCESS
+    var userAccountsResponse: Response = Response.SUCCESS
 
     @Volatile
-    var metadataResponse: Response = Response.SUCCESS
+    var sendMoneyResponse: Response = Response.SUCCESS
 }
 
 @Singleton
@@ -44,13 +44,13 @@ class EmbeddedServer @Inject constructor(
                 routing {
                     get("/user-account") {
                         handleRequest(
-                            mockEnvironmentConfig.generatePreSignedUrlResponse,
+                            mockEnvironmentConfig.userAccountsResponse,
                             successResponseMessage = successResponseMessageGetAccountVariantOne
                         )
                     }
                     post("/send-money") {
                         handleRequest(
-                            mockEnvironmentConfig.generatePreSignedUrlResponse,
+                            mockEnvironmentConfig.sendMoneyResponse,
                             successResponseMessage = successResponseMessageSendMoney
                         )
                     }

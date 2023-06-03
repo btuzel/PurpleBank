@@ -1,16 +1,15 @@
 package com.example.purplebank.network.getaccountdetails
 
-import com.example.purplebank.data.user.User
+import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.POST
 
 interface GetAccountDetailsService {
 
     @GET("user-account")
     suspend fun getUserAccount(
         @Header("X-APP-ACCESS-TOKEN") apiKey: String,
-    ): User
+    ): ResponseBody
 }
 
 //purplebankbackend.com/user-account?userId=123, if we have userId

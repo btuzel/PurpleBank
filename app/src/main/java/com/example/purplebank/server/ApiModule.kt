@@ -1,7 +1,6 @@
 package com.example.purplebank.server
 
 import com.example.purplebank.data.transaction.TransactionAmount
-import com.example.purplebank.data.user.User
 import com.example.purplebank.network.getaccountdetails.GetAccountDetailsService
 import com.example.purplebank.network.transaction.SendMoneyService
 import dagger.Module
@@ -45,8 +44,8 @@ private class NetworkErrorSimulatingAccountService(
     private val accService: GetAccountDetailsService,
     private val mockEnvironmentConfig: MockEnvironmentConfig
 ) : GetAccountDetailsService {
-    override suspend fun getUserAccount(apiKey: String): User {
-        if (mockEnvironmentConfig.metadataResponse == Response.NETWORK_ERROR) {
+    override suspend fun getUserAccount(apiKey: String): ResponseBody {
+        if (mockEnvironmentConfig.userAccountsResponse == Response.NETWORK_ERROR) {
             throw IOException("Something went wrong")
         }
         return accService.getUserAccount(apiKey)
@@ -61,7 +60,7 @@ private class NetworkErrorSimulatingSendMoneyService(
         transactionAmount: TransactionAmount,
         targetUser: String
     ): ResponseBody {
-        if (mockEnvironmentConfig.metadataResponse == Response.NETWORK_ERROR) {
+        if (mockEnvironmentConfig.sendMoneyResponse == Response.NETWORK_ERROR) {
             throw IOException("Something went wrong")
         }
         return moneyService.sendMoney(transactionAmount, targetUser)

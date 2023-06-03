@@ -3,14 +3,12 @@ package com.example.purplebank.network.getaccountdetails
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.purplebank.data.user.User
+import com.example.purplebank.data.user.UserResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-//sending money -> Request(50, hardcoded maybe the account that will receive the money)
-//receiving money -> get account details(refresh)
 
 @HiltViewModel
 class GetAccountDetailsViewModel @Inject constructor(private val getAccountDetailsUseCase: GetAccountDetailsUseCase) :
@@ -22,12 +20,19 @@ class GetAccountDetailsViewModel @Inject constructor(private val getAccountDetai
 
     init {
         viewModelScope.launch {
-            try {
-                val account = getAccountDetailsUseCase()
-                _accountUiState.value = AccountViewState.Success(account)
-            } catch (e: Exception) {
-                _accountUiState.value =
-                    AccountViewState.Error(e.message ?: "Unknown error occurred")
+            getAccount()
+        }
+    }
+
+    private suspend fun getAccount() {
+        when (val account = getAccountDetailsUseCase()) {
+            is UserResult.Success ->
+                _accountUiState.value = AccountViewState.Success(
+                    userAccount = account.user
+                )
+
+            is UserResult.Failure -> {
+                _accountUiState.value = AccountViewState.Error(account.failureReason)
             }
         }
     }
