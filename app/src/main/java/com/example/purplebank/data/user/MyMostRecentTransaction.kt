@@ -1,6 +1,7 @@
 package com.example.purplebank.data.user
 
 import com.example.purplebank.data.transaction.TransactionAmount
+import java.io.Serializable
 
 data class MyMostRecentTransaction(
     val amount: TransactionAmount,
@@ -8,4 +9,4 @@ data class MyMostRecentTransaction(
     val direction: String,
     val reference: String,
     val sender: String?
-)
+) : Serializable
