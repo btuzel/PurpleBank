@@ -29,7 +29,6 @@ fun String.checkEntry(): Boolean {
 fun fixDate(dateString: String): String {
     val formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HH:mm:ss")
     val dateTime = LocalDateTime.parse(dateString, formatter)
-
     val dayOfMonth = dateTime.dayOfMonth
     val month = dateTime.month.getDisplayName(TextStyle.FULL, Locale.ENGLISH)
     val year = dateTime.year
