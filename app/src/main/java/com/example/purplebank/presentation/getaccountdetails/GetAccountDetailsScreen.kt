@@ -35,7 +35,7 @@ import com.example.purplebank.ui.LoadingState
 import com.example.purplebank.ui.PurpleBankButton
 
 @Composable
-fun UserAccountScreen(
+fun GetAccountDetailsScreen(
     getAccountDetailsViewModel: GetAccountDetailsViewModel = hiltViewModel(),
     goToSendMoneyScreen: () -> Unit
 ) {
@@ -44,13 +44,13 @@ fun UserAccountScreen(
         is GetAccountDetailsViewModel.AccountViewState.Error -> ErrorState()
         GetAccountDetailsViewModel.AccountViewState.Loading -> LoadingState()
         is GetAccountDetailsViewModel.AccountViewState.Success -> {
-            UserAccountInternal(account.userAccount, goToSendMoneyScreen)
+            GetAccountDetailsScreenInternal(account.userAccount, goToSendMoneyScreen)
         }
     }
 }
 
 @Composable
-fun UserAccountInternal(
+fun GetAccountDetailsScreenInternal(
     account: User,
     goToSendMoneyScreen: () -> Unit
 ) {

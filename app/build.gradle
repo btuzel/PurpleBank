@@ -49,6 +49,13 @@ android {
             excludes += '/META-INF/*.md'
         }
     }
+    testOptions {
+        packagingOptions {
+            jniLibs {
+                useLegacyPackaging = true
+            }
+        }
+    }
 }
 
 

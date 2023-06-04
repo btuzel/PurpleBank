@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.purplebank.presentation.getaccountdetails.UserAccountScreen
+import com.example.purplebank.presentation.getaccountdetails.GetAccountDetailsScreen
 import com.example.purplebank.presentation.transaction.SendMoneyScreen
 
 @RequiresApi(Build.VERSION_CODES.S)
@@ -22,7 +22,7 @@ fun NavGraph(
             SendMoneyScreen()
         }
         composable(route = ScreenDestination.UserAccountScreen.route) {
-            UserAccountScreen(goToSendMoneyScreen = { navHostController.navigate(ScreenDestination.SendMoneyScreen.route) })
+            GetAccountDetailsScreen(goToSendMoneyScreen = { navHostController.navigate(ScreenDestination.SendMoneyScreen.route) })
         }
     }
 }

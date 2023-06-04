@@ -24,6 +24,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -35,6 +36,7 @@ import com.example.purplebank.ui.LoadingState
 import com.example.purplebank.ui.PurpleBankButton
 import java.math.BigDecimal
 
+const val SEND_MONEY_TEXT_FIELD = "sendMoneyTextField"
 @Composable
 fun SendMoneyScreen(
     sendMoneyViewModel: SendMoneyViewModel = hiltViewModel(),
@@ -83,7 +85,7 @@ fun SendMoneyScreenInternal(
                         .padding(horizontal = 32.dp)
                 ) {
                     Text(
-                        text = moneyState.currentBalance.units.toString(),
+                        text = "${moneyState.currentBalance.units}",
                         style = MaterialTheme.typography.h5
                     )
                     Text(
@@ -108,6 +110,7 @@ fun SendMoneyScreenInternal(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier
                         .fillMaxWidth()
+                        .testTag(SEND_MONEY_TEXT_FIELD)
                         .padding(horizontal = 32.dp)
                         .focusRequester(focusRequester)
                         .onFocusChanged { state ->
