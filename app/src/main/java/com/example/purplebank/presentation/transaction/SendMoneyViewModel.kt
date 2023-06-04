@@ -60,9 +60,15 @@ class SendMoneyViewModel @Inject constructor(
         targetUser: String
     ) {
         val intValue = amount.toInt()
-        val remainder = amount.remainder(BigDecimal.ONE).toInt()
+        val remainder = amount.remainder(BigDecimal.ONE)
+            .movePointRight(amount.scale())
+            .setScale(2)
+            .let {
+                if (it < BigDecimal.TEN) it.multiply(BigDecimal.TEN).toInt()
+                else it.toInt()
+            }
         val transactionAmount = TransactionAmount(
-            amount = Amount(subUnits = intValue, units = remainder),
+            amount = Amount(units = intValue, subUnits = remainder),
             currency = "GBP"
         )
         viewModelScope.launch {
