@@ -1,4 +1,4 @@
-package com.example.purplebank.network.transaction
+package com.example.purplebank.presentation.transaction
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement

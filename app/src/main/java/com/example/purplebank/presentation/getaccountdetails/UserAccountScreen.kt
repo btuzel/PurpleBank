@@ -1,4 +1,4 @@
-package com.example.purplebank.network.getaccountdetails
+package com.example.purplebank.presentation.getaccountdetails
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

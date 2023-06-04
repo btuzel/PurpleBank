@@ -1,4 +1,4 @@
-package com.example.purplebank.network.transaction
+package com.example.purplebank.presentation.transaction
 
 import com.example.purplebank.data.transaction.TransactionAmount
 import okhttp3.ResponseBody

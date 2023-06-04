@@ -1,4 +1,4 @@
-package com.example.purplebank.network.getaccountdetails
+package com.example.purplebank.presentation.getaccountdetails
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,9 +31,8 @@ class GetAccountDetailsViewModel @Inject constructor(private val getAccountDetai
                     userAccount = account.user
                 )
 
-            is UserResult.Failure -> {
+            is UserResult.Failure ->
                 _accountUiState.value = AccountViewState.Error(account.failureReason)
-            }
         }
     }
 

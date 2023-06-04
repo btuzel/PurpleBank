@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.purplebank.network.getaccountdetails.UserAccountScreen
-import com.example.purplebank.network.transaction.SendMoneyScreen
+import com.example.purplebank.presentation.getaccountdetails.UserAccountScreen
+import com.example.purplebank.presentation.transaction.SendMoneyScreen
 
 @RequiresApi(Build.VERSION_CODES.S)
 @Composable

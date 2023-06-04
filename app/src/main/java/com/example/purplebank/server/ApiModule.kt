@@ -1,8 +1,8 @@
 package com.example.purplebank.server
 
 import com.example.purplebank.data.transaction.TransactionAmount
-import com.example.purplebank.network.getaccountdetails.GetAccountDetailsService
-import com.example.purplebank.network.transaction.SendMoneyService
+import com.example.purplebank.presentation.getaccountdetails.GetAccountDetailsService
+import com.example.purplebank.presentation.transaction.SendMoneyService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

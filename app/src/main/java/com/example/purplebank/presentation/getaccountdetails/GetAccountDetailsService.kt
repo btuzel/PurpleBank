@@ -1,4 +1,4 @@
-package com.example.purplebank.network.getaccountdetails
+package com.example.purplebank.presentation.getaccountdetails
 
 import okhttp3.ResponseBody
 import retrofit2.http.GET

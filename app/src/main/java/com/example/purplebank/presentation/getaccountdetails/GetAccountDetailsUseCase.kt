@@ -1,4 +1,4 @@
-package com.example.purplebank.network.getaccountdetails
+package com.example.purplebank.presentation.getaccountdetails
 
 import com.example.purplebank.data.user.User
 import com.example.purplebank.data.user.UserResult

@@ -1,11 +1,11 @@
-package com.example.purplebank.network.transaction
+package com.example.purplebank.presentation.transaction
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.purplebank.data.transaction.Amount
 import com.example.purplebank.data.transaction.TransactionAmount
 import com.example.purplebank.data.user.UserResult
-import com.example.purplebank.network.getaccountdetails.GetAccountDetailsUseCase
+import com.example.purplebank.presentation.getaccountdetails.GetAccountDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -66,6 +66,7 @@ class SendMoneyViewModel @Inject constructor(
             currency = "GBP"
         )
         viewModelScope.launch {
+            getBalance()
             val result = sendMoneyUseCase(transactionAmount, targetUser)
             if (result.failureReason.isNullOrEmpty()) {
                 _uiState.value =
