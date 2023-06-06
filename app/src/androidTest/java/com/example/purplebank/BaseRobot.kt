@@ -5,11 +5,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
-abstract class BaseRobot(val composeTestRule: ComposeTestRule) {
-    fun waitForIdle() {
-        composeTestRule.waitForIdle()
-    }
-}
+abstract class BaseRobot(val composeTestRule: ComposeTestRule)
 
 @OptIn(ExperimentalContracts::class)
 inline fun <T : BaseRobot, R> T.execute(block: T.() -> R) {

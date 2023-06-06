@@ -12,7 +12,7 @@ class GetAccountDetailsUseCase @Inject constructor(private val getAccountDetails
             val body = response.string()
             UserResult.Success(deserializeUserResponse(body))
         } catch (e: Exception) {
-            UserResult.Failure(e.message ?: "idk")
+            UserResult.Failure(e.message ?: "Exception caught")
         }
     }
 

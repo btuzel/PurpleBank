@@ -37,6 +37,7 @@ import com.example.purplebank.ui.PurpleBankButton
 import java.math.BigDecimal
 
 const val SEND_MONEY_TEXT_FIELD = "sendMoneyTextField"
+
 @Composable
 fun SendMoneyScreen(
     sendMoneyViewModel: SendMoneyViewModel = hiltViewModel(),

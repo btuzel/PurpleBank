@@ -29,7 +29,7 @@ fun ErrorState() {
             modifier = Modifier
                 .fillMaxWidth()
                 .paddingFromBaseline(top = 40.dp),
-            text = "ERROR",
+            text = "Error fetching account details",
             color = Color.Red,
             textAlign = TextAlign.Center,
         )
