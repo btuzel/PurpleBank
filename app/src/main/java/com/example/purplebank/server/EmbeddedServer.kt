@@ -35,6 +35,8 @@ class EmbeddedServer @Inject constructor(
 
     private var serverThread: Thread? = null
 
+    var asd = 0
+    private val list = listOf(successResponseMessageGetAccountVariantTwo,successResponseMessageGetAccountVariantOne, successResponseMessageGetAccountVariantTwo)
     fun start() {
         if (serverThread != null) {
             return
@@ -45,8 +47,9 @@ class EmbeddedServer @Inject constructor(
                     get("/user-account") {
                         handleRequest(
                             mockEnvironmentConfig.userAccountsResponse,
-                            successResponseMessage = successResponseMessageGetAccountVariantOne
+                            successResponseMessage = list[asd]
                         )
+                        asd++
                     }
                     post("/send-money") {
                         handleRequest(

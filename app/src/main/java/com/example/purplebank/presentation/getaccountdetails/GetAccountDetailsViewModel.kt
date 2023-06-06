@@ -24,15 +24,17 @@ class GetAccountDetailsViewModel @Inject constructor(private val getAccountDetai
         }
     }
 
-    private suspend fun getAccount() {
-        when (val account = getAccountDetailsUseCase()) {
-            is UserResult.Success ->
-                _accountUiState.value = AccountViewState.Success(
-                    userAccount = account.user
-                )
+     fun getAccount() {
+        viewModelScope.launch {
+            when (val account = getAccountDetailsUseCase()) {
+                is UserResult.Success ->
+                    _accountUiState.value = AccountViewState.Success(
+                        userAccount = account.user
+                    )
 
-            is UserResult.Failure ->
-                _accountUiState.value = AccountViewState.Error(account.failureReason)
+                is UserResult.Failure ->
+                    _accountUiState.value = AccountViewState.Error(account.failureReason)
+            }
         }
     }
 

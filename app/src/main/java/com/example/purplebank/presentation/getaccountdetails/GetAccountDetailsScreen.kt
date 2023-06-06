@@ -41,7 +41,7 @@ fun GetAccountDetailsScreen(
 ) {
     val accountViewState by getAccountDetailsViewModel.accountUiState.collectAsState()
     when (val account = accountViewState) {
-        is GetAccountDetailsViewModel.AccountViewState.Error -> ErrorState()
+        is GetAccountDetailsViewModel.AccountViewState.Error -> ErrorState(getAccountDetailsViewModel::getAccount)
         GetAccountDetailsViewModel.AccountViewState.Loading -> LoadingState()
         is GetAccountDetailsViewModel.AccountViewState.Success -> {
             GetAccountDetailsScreenInternal(account.userAccount, goToSendMoneyScreen)
